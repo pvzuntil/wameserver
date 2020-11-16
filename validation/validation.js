@@ -20,6 +20,13 @@ const validation = {
                 no: Joi.string().required(),
             }).validate(data)
         }
+    },
+    delete:{
+        kontak:(data)=>{
+            return Joi.object({
+                id: Joi.required()
+            }).validate(data)
+        }
     }
 }
 
