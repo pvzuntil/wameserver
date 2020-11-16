@@ -30,6 +30,28 @@ kontakRouter.get('/all', async (req, res) => {
     }
 })
 
+kontakRouter.post('/one', async (req, res) => {
+    const data = req.body
+    const checkValidate = utils.validateReq(data, validation.only.id)
+    if (checkValidate) {
+        return res.send(utils.responseError(utils.getJoiMessage(checkValidate)))
+    }
+
+    try {
+        const getData = await KontakModel.findById(data.id)
+
+        if (!getData) {
+            return res.send(utils.response(0, 'data tidak ditemukan'))
+        }
+        return res.send(utils.response(1, 'berhasil', {
+            kontak: getData
+        }))
+
+    } catch (error) {
+        return res.send(utils.responseError(error.message))
+    }
+})
+
 kontakRouter.post('/create', async (req, res) => {
     const session = req.currentUser
     const data = req.body
@@ -57,7 +79,7 @@ kontakRouter.post('/create', async (req, res) => {
 
 kontakRouter.delete('/delete', async (req, res) => {
     const data = req.body
-    const checkValidate = utils.validateReq(data, validation.delete.kontak)
+    const checkValidate = utils.validateReq(data, validation.only.id)
     if (checkValidate) {
         return res.send(utils.responseError(utils.getJoiMessage(checkValidate)))
     }

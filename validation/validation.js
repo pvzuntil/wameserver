@@ -13,16 +13,23 @@ const validation = {
             password: Joi.string().required().min(6)
         }).validate(data)
     },
-    create:{
-        kontak: (data)=>{
+    create: {
+        kontak: (data) => {
             return Joi.object({
                 name: Joi.string().required().min(3),
                 no: Joi.string().required(),
             }).validate(data)
         }
     },
-    delete:{
-        kontak:(data)=>{
+    // delete: {
+    //     kontak: (data) => {
+    //         return Joi.object({
+    //             id: Joi.required()
+    //         }).validate(data)
+    //     }
+    // },
+    only: {
+        id: (data) => {
             return Joi.object({
                 id: Joi.required()
             }).validate(data)
