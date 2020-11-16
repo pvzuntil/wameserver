@@ -7,7 +7,10 @@ const jwt = require('jsonwebtoken')
 
 authRouter.post('/login', async (req, res) => {
     const data = req.body
-    utils.validateReq(res, data, validation.login)
+    let checkValidation = utils.validateReq(data, validation.login)
+    if(checkValidation){
+        return res.send(utils.responseError(utils.getJoiMessage(checkValidation)))
+    }
 
     try {
         let getUser = await UserModel.findOne({
@@ -40,7 +43,10 @@ authRouter.post('/login', async (req, res) => {
 
 authRouter.post('/signin', async (req, res) => {
     const data = req.body
-    utils.validateReq(res, data, validation.signin)
+    let checkValidation = utils.validateReq(data, validation.signin)
+    if(checkValidation){
+        return res.send(utils.responseError(utils.getJoiMessage(checkValidation)))
+    }
 
     try {
         let getUser = await UserModel.findOne({
