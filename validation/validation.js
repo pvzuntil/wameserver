@@ -12,6 +12,14 @@ const validation = {
             email: Joi.string().required().email(),
             password: Joi.string().required().min(6)
         }).validate(data)
+    },
+    create:{
+        kontak: (data)=>{
+            return Joi.object({
+                name: Joi.string().required().min(3),
+                no: Joi.string().required(),
+            }).validate(data)
+        }
     }
 }
 

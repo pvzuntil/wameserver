@@ -4,6 +4,8 @@ const utils = require('./lib/util');
 const app = express()
 const dotenv = require('dotenv');
 const authRouter = require('./route/authRouter');
+const kontakRouter = require('./route/kontakRouter');
+const middleware = require('./middleware/middleware');
 
 dotenv.config()
 
@@ -20,7 +22,9 @@ app.use(express.json())
 app.get('/', (req, res) => {
     return res.send(utils.response(12, 'masukkkk'))
 });
+
 app.use('/auth', authRouter)
+app.use('/kontak', middleware.isLogin, kontakRouter)
 
 app.listen(3000, () => {
     console.log('Server Runing!');
