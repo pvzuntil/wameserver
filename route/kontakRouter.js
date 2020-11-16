@@ -95,4 +95,26 @@ kontakRouter.delete('/delete', async (req, res) => {
     }
 })
 
+kontakRouter.put('/update', async (req, res) => {
+    const data = req.body
+    const checkValidate = utils.validateReq(data, validation.update.kontak)
+
+    if (checkValidate) {
+        return res.send(utils.responseError(utils.getJoiMessage(checkValidate)))
+    }
+
+    try {
+        const updateKontak = await KontakModel.findByIdAndUpdate(data.id, {
+            name: data.name,
+            no: data.no
+        })
+
+        return res.send(utils.response(1, 'berhasil mengubah kontak', {
+            kontak: updateKontak
+        }))
+    } catch (error) {
+        return res.send(utils.responseError(error.message))
+    }
+})
+
 module.exports = kontakRouter

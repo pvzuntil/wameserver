@@ -21,6 +21,15 @@ const validation = {
             }).validate(data)
         }
     },
+    update: {
+        kontak: (data) => {
+            return Joi.object({
+                name: Joi.string().required().min(3),
+                no: Joi.string().required(),
+                id: Joi.required()
+            }).validate(data)
+        }
+    },
     // delete: {
     //     kontak: (data) => {
     //         return Joi.object({
