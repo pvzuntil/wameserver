@@ -16,6 +16,7 @@ mongoose.connect(process.env.DB_HOST, {
     console.log('Database Active!');
 
 });
+mongoose.set('useFindAndModify', false)
 
 app.use(express.json())
 
