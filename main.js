@@ -7,6 +7,8 @@ const authRouter = require('./route/authRouter');
 const kontakRouter = require('./route/kontakRouter');
 const middleware = require('./middleware/middleware');
 
+let appPort = process.env.PORT || 3000
+
 dotenv.config()
 
 mongoose.connect(process.env.DB_HOST, {
@@ -27,6 +29,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter)
 app.use('/kontak', middleware.isLogin, kontakRouter)
 
-app.listen(3000, () => {
+app.listen(appPort, () => {
     console.log('Server Runing!');
 })
